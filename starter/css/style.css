@@ -1,0 +1,263 @@
+/*
+COLORS:
+
+Light green: #7ed56f
+Medium green: #55c57a
+Dark green: #28b485
+
+*/
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    /*Borders and paddings are not longer added to the width or height of an element
+    El box-sizing que tenia en el * lo saca de aca y lo pone en el body
+    Esta es una mejor practica que ponerle aca el box-sizing porque habilita que en los plugins
+    y etc que ya viene especificado el box-sizing lo puedas cambiar mejor
+    */
+    box-sizing: inherit;
+}
+html {
+    /*Lo seteamos en 10 para que las reglas de 3 sean mas faciles de hacer 1rem = 10px. Para
+      saber la equivalencia divido los pixeles en 10 y tengo la cantidad de rems :D*/
+    font-size: 62.5%;
+    /*En los mediaqueries puedo cambiar este fontsize para cambiar todos los tama;os de la pagina
+    Es una mala practica setear el font-size general en pixels!! asi que antes teniamos 10px.
+    El tema es que mucha gente cambia el tama;o de letra de su navegador y si lo seteamos en 10px
+    le quitamos a esta gente la habilidad de ver el sitio con su configuracion predeterminada porque
+    lo estamos sobrescribiendo.
+    Si el user no cambia nada el default son 16px o sea 100%
+    Pero queremos 10px en % o sea 62.5% y listo!
+    */
+}
+/*Good practice due to inheritence*/
+body {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    /*font-size: 16px;*/
+    line-height: 1.7;
+    color: #777;
+    /*padding: 30px;*/
+    /*Ahora pila de cosas las queremos en rem asi queda todo proporcional a la letra entonces
+    el padding queremos que sea 30/10 = 3 rem*/
+    padding: 3rem;
+    box-sizing: border-box;
+}
+
+.header {
+    /*95% de la altura del viewport*/
+    height: 95vh;
+    /*Separo las background images con coma, la que esta primero va a ser la que este on top */
+    background-image: linear-gradient(
+        to right bottom,
+        rgba(126, 213, 111, 0.8),
+        rgba(40,180,131,0.8)), 
+    url(../img/hero.jpg);
+    /*Whatever the with of the element the brackground intends to fit*/
+    background-size: cover;
+    background-position: top;
+    position: relative;
+    /*Tengo los 4 lados empiezo como el reloj del top left al top right despues al bottom right y luego al bottom left
+    defino cuantos son las distancias y cuanto quiero que se mueva de uno a otro,
+    en el top left no quiero que cambie nada asi que 0 0
+    en el top right quiero que vaya desde el top left al top right por eso en la x le pongo 100% (posicion 100%) y en la y 0
+    en el bottom right no quiero que haga nada en la x pero si quiero que se separe por ejemplo x pixels
+    y en el bottom left quiero que vaya devuelta la posicion 0 y en la y quiero que vaya hasta el final o sea que quiero que vaya hasta el 100%*/
+    clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+}
+.header__logo-box {
+    position: absolute;
+    /*
+    top: 40px;
+    left: 40px;
+    */
+    top: 4rem;
+    left: 4rem;
+}
+.header__logo {
+    /*
+    height: 35px;
+    */
+    height: 3.5rem;
+}
+/* puedo usar animaciones en hover
+.logo:hover {
+    animation: moveInRight 1s ease-out;
+}*/
+.header__text-box {
+    position: absolute;
+    /* En relacion al padre estos porcentajes es donde la caja de texto inicialmente estaba posicionada */
+    top: 40%;
+    left: 50%;
+    /* valores de x e y, es respecto al width del elemento y no del padre, o sea 50% del height del elemento to the top */
+    transform: translate(-50%, -50%);
+    /*como el boton es un elemento de linea puedo decirle al padre que centre todos los textos y woala!*/
+    text-align: center;
+}
+.heading-primary{
+    color: #fff;
+    text-transform: uppercase;
+    /*Le dice si la parte de atras del elemento cuando se usa transform es visible o esta oculto para el user
+    es un fix para arreglar el shaking en las animaciones a vces (ejemplo roto con transform y me oculta la cara de atras
+    */
+    backface-visibility: hidden;
+    /*margin-bottom: 60px;*/
+    margin-bottom: 6rem;
+}
+.heading-primary--main {
+    display: block;
+    /*
+    font-size: 60px;*/
+    font-size: 6rem;
+    font-weight: 700;
+    /*letter-spacing: 35px;*/
+    letter-spacing: 3.5rem;
+    animation-name: moveInLeft;
+    animation-duration: 1s;
+    /* que tan rapido o que tan lento van a pasar las animaciones del keyframe en el tiempo, tenes ease out que empieza rapido y termina lento, 
+    ease-in, etc pero tambien tenes cubic brazier que te deja ptener tu propia animacion custom */
+    animation-timing-function: ease-out;
+    /*cuantas veces se repite la animacion, aca se repetiria 3 veces 
+    animation-iteration-count: 3; */
+    /*antes de que empiece a ejecutarse la animacion espera 3s
+    animation-delay: 3s;
+    */
+}
+.heading-primary--sub {
+    display: block;
+    font-size: 2rem;
+    font-weight: 400;
+    letter-spacing: 1.75rem;
+    animation-name: moveInRight;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+}
+@keyframes moveInLeft {
+    /*El browser esta preparado para usar en los keyframes el opacity y el transform */
+    0% {
+        opacity: 0;
+        /*Queremos animar en la x que aparezca un poco mas a la izquierda, es negativo porque la direccion  va de left to right. Positivo va a la derecha
+        negativo va a lla izquierda*/
+       /* transform: translateX(-100px);*/
+       transform: translateX(-10rem);
+    }
+    /*
+    60% {
+        deg unidades para rotar
+        transform: rotate(180deg);
+    }*/
+    80% {
+        transform: translateX(1rem);
+    }
+    100% {
+        opacity: 1;
+        /*Vuelve a su posicion original*/
+        transform: translateX(0);
+    }
+}
+@keyframes moveInRight {
+    /*El browser esta preparado para usar en los keyframes el opacity y el transform */
+    0% {
+        opacity: 0;
+        /*empieza de la derecha y va a la izquierda en el -10*/
+        transform: translateX(10rem);
+    }
+    80% {
+        transform: translateX(-1rem);
+    }
+    100% {
+        opacity: 1;
+        /*Vuelve a su posicion original, como es cero puedo poner solo translate*/
+        transform: translate(0);
+        /*si quiero agregar otro efecto al transform puedo hacer transform: translate(0) rotate(120deg);*/
+    }
+}
+@keyframes moveInBottom {
+    /*El browser esta preparado para usar en los keyframes el opacity y el transform */
+    0% {
+        opacity: 0;
+        /*empieza de la derecha y va a la izquierda en el -10*/
+        transform: translateY(3rem);
+    }
+    100% {
+        opacity: 1;
+        /*Vuelve a su posicion original, como es cero puedo poner solo translate*/
+        transform: translate(0);
+        /*si quiero agregar otro efecto al transform puedo hacer transform: translate(0) rotate(120deg);*/
+    }
+}
+/*Uso una pseudo clase, cuando tiene un link o cuando el user clickeo en el boton ya y lo ve devuelto*/
+.btn:link, 
+.btn:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    /*primero top boton y despues left y right*/
+    padding: 1.5rem 4rem;
+    /*hay que ponerle que sea de bloque para que no se vaya por encima del otro, lo que hace es que se comporta de bloque y ocupa el ancho del elemento*/
+    display: inline-block;
+    border-radius: 10rem;
+    /*le digo que properties quiero que se anime en este caso todas
+    se anima la transicion entre este estado y los otros :D transition tiene que estar en el initial state
+    */
+    transition: all .2s;
+    /*para la referencia del ::after*/
+    position: relative;
+    font-size: 1.6rem;
+}
+.btn:hover {
+    /*quiero que se mueva para arriba un poquito, pongo un valor negativo porque naturalmente se mueve desde el top al bottom entonces si quiero que sea del bottom al top es negativo*/
+    transform: translateY(-3px);
+    /*
+    1er valor: offset en el eje de las x
+    2do valor: offset en el eje de las y
+    3er valor: el blur que quiero en la shador
+    4to valor: el color, puedo ponerlo con opacidad
+    */
+    box-shadow:  0 1rem 2rem rgba(0,0,0, .2);
+}
+/*cuando le hago el click*/
+.btn:active {
+    /*en relacion a la posicion inicial en el link state no en el hover*/
+    transform: translateY(-1px);
+    /*Le saco un poco de offset en la y y el blur se lo bajo asi da sensacion de presionado*/
+    box-shadow:  0 .5rem 1rem rgba(0,0,0, .2);
+}
+.btn--white {
+    background-color: #fff;
+    color: #777;
+}
+.btn::after {
+    /*para que aparezca en el sitio*/
+    content : "";
+    /*porque el boton que tenemos tambien es un inline-block y queremos que luzca parecido a lo que tenemos*/
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    /*Todo esto funciona porque el pseudo elemento after before, etc es tratado como un hijo del boton y por eso agarra el 100%*/
+    border-radius: 10rem;
+    /*hay que ponerlo por atras del boton original*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    /*La transition siempre lo haces en el initial state asi se anima de un estado al otro*/
+    transition: all .4s;
+}
+.btn--white::after {
+    background-color: #fff;
+    z-index: -1;
+}
+/*cuando se hace hover al boton queremos que se le apliquen algunos estilos al pseudo elemento ::after*/
+.btn:hover::after {
+/*queremos que el boton sea mas grande y que se desvanezca*/
+/*Lo que hace el scale es que le duplica el tamaño del boton*/
+    transform: scaleX(1.4) scaleY(1.6);
+    /*para hacer el efecto del fading */ 
+    opacity: 0;
+}
+.btn--animated {
+    /*animation name, duration, effect and delay*/
+    animation: moveInBottom .5s ease-out .75s;
+    /*automaticamente le aplica el estilo del 0% de la animacion antes que la animacion ocurra*/
+    animation-fill-mode: backwards;
+}

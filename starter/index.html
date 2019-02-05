@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+
+        <link rel="stylesheet" href="css/icon-font.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="shortcut icon" type="image/png" href="img/favicon.png">
+        
+        <title>Natours | Exciting tours for adventurous people</title>
+    </head>
+    <body>
+    <!--El header es un componente que se puede reutilizar-->
+       <header class="header">
+           <!-- Es parte del header pero solo no tiene significado. Entonces para decir que el logo es el elemento del bloque header
+                Pongo header que es el bloque y lo separo del elemento con dos guiones bajos
+            -->
+            <figure class="header__logo-box">
+                <img src="img/logo-white.png" alt="Logo" class="header__logo">
+            </figure>
+            <div class="header__text-box">
+                <!--Aca es distinto porque esto lo podemos tratar como un bloque independiente que se puede
+                    reutilizar independientemente de si esta en el header o no.
+                -->
+                <h1 class="heading-primary">
+                        <!--Main y sub son modifiers de heading primary porque solo le cambian el estilo a heading primary
+                            por eso va doble - (--)
+                        -->
+                        <span class="heading-primary--main">Outdoors</span>
+                        <span class="heading-primary--sub">is where life happens</span>
+                </h1>
+                <!--Porque vamos a tener varios btn pero con distintos colores-->
+                <!--Lo mismo aca voy a tener un boton y esta modificado los estilos por white y animated-->
+                <a href="#" class="btn btn--white btn--animated">Discover our tours</a>
+            </div>
+       </header> 
+        
+    </body>
+</html>
